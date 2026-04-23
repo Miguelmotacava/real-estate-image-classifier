@@ -6,12 +6,12 @@
 | exp_F9_mega_ensemble             | nan                          | nan                 |            nan      |          0.9896 |     0.9908 |        0.9896 |          nan |
 | exp_F5_ensemble_f3_f4            | nan                          | nan                 |            nan      |          0.9881 |     0.9894 |        0.9881 |          nan |
 | exp_E5_ensemble_4way             | nan                          | nan                 |            nan      |          0.9866 |     0.9881 |        0.9867 |          nan |
+| exp_FINAL_swin_large_384_9010    | swin_large_384               | fine_tuning         |              0.9866 |          0.9866 |     0.9878 |        0.9864 |            8 |
 | exp_E4_ensemble_optimized_3way   | nan                          | nan                 |            nan      |          0.9852 |     0.9859 |        0.9851 |          nan |
 | exp_E3_ensemble_Bheavy_C2_E2     | nan                          | nan                 |            nan      |          0.9822 |     0.9841 |        0.9822 |          nan |
 | exp_E3_ensemble_C2_B_weighted    | nan                          | nan                 |            nan      |          0.9822 |     0.9841 |        0.9822 |          nan |
 | exp_E3_ensemble_equal_C2_E2      | nan                          | nan                 |            nan      |          0.9792 |     0.9815 |        0.9792 |          nan |
 | exp_F6_swin_large_384            | swin_large_384               | fine_tuning         |              0.9792 |          0.9777 |     0.9806 |        0.9777 |           13 |
-| exp_FINAL_swin_large_384_9010    | swin_large_384               | fine_tuning         |              0.9777 |          0.9777 |     0.9784 |        0.9773 |            1 |
 | exp_F8_beit_large_224            | beit_large_224               | fine_tuning         |              0.9747 |          0.9763 |     0.9787 |        0.9763 |           14 |
 | exp_E3_ensemble_C2heavy_C2_E2    | nan                          | nan                 |            nan      |          0.9763 |     0.9792 |        0.9763 |          nan |
 | exp_E3_ensemble_trio_C2_E1_E2    | nan                          | nan                 |            nan      |          0.9763 |     0.9795 |        0.9762 |          nan |

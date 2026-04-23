@@ -90,7 +90,7 @@ Cómo navegar W&B (tabla de runs, comparativas, sweep, dónde está la accuracy)
 
 | Experimento | Modelo | Estrategia | Train acc | Val acc | Test acc | F1 macro |
 |---|---|---|---:|---:|---:|---:|
-| **exp_FINAL_swin_large_384_9010** ⭐ (desplegado) | Swin-Large 384 | FT 384px + 90/10 split + EMA + TTA hflip (1 epoch por throttling térmico) | — | **0.9777** | *n/a* | **0.978** |
+| **exp_FINAL_swin_large_384_9010** ⭐ (desplegado) | Swin-Large 384 | FT 384px + 90/10 split + EMA + TTA hflip + cosine+warmup (8 epochs, early-stop) | **0.991** | **0.9866** | *n/a* | **0.988** |
 | **exp_F9_mega_ensemble** (modo investigación) | ConvNeXtV2-L + EVA02-B + Swin-L + BEiT-L | soft voting 4-way multi-scale: 0.20·F3 + 0.40·F4 + 0.30·F6 + 0.10·F8 | 0.99+ | **0.982** | **0.990** | **0.991** |
 | exp_F7_ensemble_f3_f4_f6 | ConvNeXtV2-L + EVA02-B + Swin-L | soft voting 3-way multi-scale: 0.25·F3 + 0.35·F4 + 0.40·F6 | 0.99+ | **0.982** | **0.990** | **0.991** |
 | exp_F5_ensemble_f3_f4 | ConvNeXtV2-L + EVA02-B | soft voting 2-way CNN+ViT: 0.30·F3 + 0.70·F4 (multi-scale TTA) | 0.99+ | 0.981 | 0.988 | 0.989 |
@@ -113,13 +113,16 @@ Cómo navegar W&B (tabla de runs, comparativas, sweep, dónde está la accuracy)
 | exp_A1_scratch_cnn | TinyCNN (scratch, CPU) | desde cero | — | 0.293 | 0.282 | 0.212 |
 
 > **Modelo desplegado (producción) — `exp_FINAL_swin_large_384_9010`**:
-> Swin-Large 384 reentrenado con split 90/10 (4036 train / 449 val). Sólo
-> llegó a 1 epoch antes de detenerse por throttling térmico de la GPU
-> (86 °C sostenidos, epoch=5751 s vs ~300 s nominal). Aun así, val acc
-> 0.9777 con TTA hflip — **al nivel de F6 benchmark** (0.9778 test en 70/15/15).
-> Ventaja de producción: un único forward pass (~90 ms GPU), cumple la
-> latencia requerida, arquitectura estable. La API carga este modelo por
-> defecto (prefijo `exp_FINAL` prioritario en `discover_best_checkpoint`).
+> Swin-Large 384 reentrenado con split 90/10 (4036 train / 449 val), 8
+> epochs hasta early-stop (cosine LR + warmup, EMA decay 0.999, TTA hflip
+> en eval). **Cumple el objetivo "≥0.98 en train Y val simultáneamente"**:
+> train_acc 0.9908 / val_acc (TTA) 0.9866 / F1 macro 0.9878. Gap
+> train−val = +0.0042 (sin overfitting). Nueve clases con F1 = 1.000:
+> Bedroom, Highway, Industrial, Kitchen, Living room, Mountain, Office,
+> Store, Suburb. Mejor que el benchmark individual F6 (0.9778 test en
+> 70/15/15) gracias al +28 % de datos de entrenamiento. Inferencia ~90 ms
+> en GPU; la API lo carga por defecto (prefijo `exp_FINAL` prioritario en
+> `discover_best_checkpoint`).
 >
 > **Modelo champion de benchmarking (investigación) — `exp_F9_mega_ensemble` (= F7)**:
 > soft-voting 4-way con multi-scale

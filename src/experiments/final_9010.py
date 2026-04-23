@@ -45,7 +45,7 @@ EXPERIMENT = "exp_FINAL_swin_large_384_9010"
 MODEL_NAME = "swin_large_384"
 IMAGE_SIZE = 384
 BATCH_SIZE = 4
-EPOCHS = 20
+EPOCHS = 15
 TRAIN_RATIO = 0.90
 SEED = 42
 
@@ -145,13 +145,23 @@ def main() -> None:
         param_groups=param_groups, use_wandb=True,
     )
 
-    # Reload best and compute per-class metrics on the 10% val set
+    # Reload best and compute per-class metrics on val + train (no aug)
     ckpt = torch.load(best_path, map_location=device, weights_only=False)
     model.load_state_dict(ckpt["model_state_dict"])
 
     y_true, y_pred, y_proba = collect_predictions(model, val_loader, device, tta=True)
     report = per_class_report(y_true, y_pred, classes)
     val_acc = float((y_true == y_pred).mean())
+
+    # Evaluate on the train split with no augmentation (real generalization signal)
+    train_eval_ds = SceneImageDataset(split.train_paths, split.train_labels, eval_tfm)
+    train_eval_loader = DataLoader(
+        train_eval_ds, batch_size=BATCH_SIZE, shuffle=False, num_workers=0,
+        pin_memory=(device.type == "cuda"),
+    )
+    yt_true, yt_pred, _ = collect_predictions(model, train_eval_loader, device, tta=False)
+    train_eval_acc = float((yt_true == yt_pred).mean())
+    train_report = per_class_report(yt_true, yt_pred, classes)
 
     cm_fig = confusion_matrix_figure(y_true, y_pred, classes)
     cm_path = output_dir / "confusion_matrix.png"
@@ -164,6 +174,10 @@ def main() -> None:
         json.dumps({"val_accuracy": val_acc, "report": report}, indent=2),
         encoding="utf-8",
     )
+    (output_dir / "train_metrics.json").write_text(
+        json.dumps({"train_accuracy_eval": train_eval_acc, "report": train_report}, indent=2),
+        encoding="utf-8",
+    )
 
     summary = {
         "experiment": EXPERIMENT,
@@ -172,6 +186,7 @@ def main() -> None:
         "split": "90/10 (no test holdout — see F6 for 70/15/15 benchmark)",
         "best_val_accuracy": best_val_acc,
         "final_val_accuracy_tta": val_acc,
+        "train_accuracy_eval": train_eval_acc,
         "macro_f1": report["macro avg"]["f1-score"],
         "weighted_f1": report["weighted avg"]["f1-score"],
         # Legacy key so the API's discover_best_checkpoint picks this one:
