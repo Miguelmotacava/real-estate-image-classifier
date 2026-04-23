@@ -1,0 +1,56 @@
+# Secrets
+.env
+.env.local
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Build
+build/
+dist/
+*.egg-info/
+
+# ML artifacts (mantenemos código y reports, no pesos brandes)
+wandb/
+mlruns/
+.cache/
+
+# Models — checkpoints viven en W&B artifacts (ver reports/wandb_guide.md).
+# Conservamos summary.json / *_metrics.json / confusion_matrix.png / roc_curves.png
+# / history.json para reproducibilidad; los .pt son demasiado grandes para git.
+models/**/*.pt
+models/**/*.pth
+models/**/*.bin
+models/**/optimizer.pt
+models/**/checkpoints/
+
+# Logs locales de entrenamiento / API (verbosos, no útiles en repo)
+reports/*.log
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Datos pesados (opcional dejar fuera, pero el dataset se incluye en repo según enunciado)
+# dataset/
+
+# Reports temporales
+reports/tmp/

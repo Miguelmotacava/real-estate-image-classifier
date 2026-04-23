@@ -1,0 +1,72 @@
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from WANDB_API_KEY.
+wandb: Currently logged in as: mmota (jumipe_meflipapesos) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run z77iu7be
+wandb: Tracking run with wandb version 0.26.0
+wandb: Run data is saved locally in C:\Users\motam\Escritorio\Máster Big Data 2025-2026\2º Cuatrimestre\Machine Learning II\Practica deep learning\wandb\run-20260420_184451-z77iu7be
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run exp_E1_convnext_small_288
+wandb:  View project at https://wandb.ai/jumipe_meflipapesos/real-estate-classifier
+wandb:  View run at https://wandb.ai/jumipe_meflipapesos/real-estate-classifier/runs/z77iu7be
+C:\Users\motam\Escritorio\Máster Big Data 2025-2026\2º Cuatrimestre\Machine Learning II\Practica deep learning\src\utils\train_loop.py:152: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler() if (device.type == "cuda" and supports_amp(device)) else None
+=== Hardware Report ===
+PyTorch: 2.6.0+cu124
+Platform: Windows 11 (AMD64)
+CUDA GPU 0: NVIDIA GeForce RTX 4060 Laptop GPU - 8187 MB VRAM
+Selected device: cuda
+[exp_E1_convnext_small_288] epoch 01/20 - train_loss 1.761 acc 0.599 - val_loss 1.034 acc 0.915 - ema_val 0.113 - lr 3.7e-06 - 96.7s
+[exp_E1_convnext_small_288] epoch 02/20 - train_loss 1.090 acc 0.891 - val_loss 0.933 acc 0.958 - ema_val 0.348 - lr 7.5e-06 - 95.4s
+[exp_E1_convnext_small_288] epoch 03/20 - train_loss 0.982 acc 0.932 - val_loss 0.912 acc 0.954 - ema_val 0.643 - lr 7.4e-06 - 102.4s
+[exp_E1_convnext_small_288] epoch 04/20 - train_loss 0.944 acc 0.944 - val_loss 0.895 acc 0.955 - ema_val 0.814 - lr 7.3e-06 - 98.0s
+[exp_E1_convnext_small_288] epoch 05/20 - train_loss 0.926 acc 0.953 - val_loss 0.877 acc 0.964 - ema_val 0.897 - lr 7.0e-06 - 98.2s
+[exp_E1_convnext_small_288] epoch 06/20 - train_loss 0.902 acc 0.960 - val_loss 0.878 acc 0.975 - ema_val 0.929 - lr 6.6e-06 - 103.2s
+[exp_E1_convnext_small_288] epoch 07/20 - train_loss 0.897 acc 0.960 - val_loss 0.874 acc 0.969 - ema_val 0.948 - lr 6.2e-06 - 98.2s
+[exp_E1_convnext_small_288] epoch 08/20 - train_loss 0.880 acc 0.966 - val_loss 0.875 acc 0.966 - ema_val 0.954 - lr 5.6e-06 - 107.6s
+[exp_E1_convnext_small_288] epoch 09/20 - train_loss 0.883 acc 0.965 - val_loss 0.871 acc 0.969 - ema_val 0.958 - lr 5.0e-06 - 95.6s
+[exp_E1_convnext_small_288] epoch 10/20 - train_loss 0.869 acc 0.972 - val_loss 0.874 acc 0.963 - ema_val 0.963 - lr 4.4e-06 - 93.2s
+[exp_E1_convnext_small_288] epoch 11/20 - train_loss 0.854 acc 0.978 - val_loss 0.867 acc 0.964 - ema_val 0.963 - lr 3.7e-06 - 101.8s
+[exp_E1_convnext_small_288] epoch 12/20 - train_loss 0.852 acc 0.977 - val_loss 0.861 acc 0.972 - ema_val 0.961 - lr 3.1e-06 - 99.2s
+[exp_E1_convnext_small_288] early stopping at epoch 12
+wandb: updating run metadata; uploading artifact run-z77iu7be-per_class_metrics
+wandb: uploading artifact run-z77iu7be-per_class_metrics
+wandb: uploading media\images\confusion_matrix_12_da7c9a83e04bddf224ef.png
+wandb: 
+wandb: Run history:
+wandb:   ema_val_accuracy ▁▃▅▇▇███████
+wandb:       ema_val_loss █▆▅▃▃▂▂▁▁▁▁▁
+wandb:              epoch ▁▂▂▃▄▄▅▅▆▇▇█
+wandb: epoch_time_seconds ▃▂▅▃▃▆▃█▂▁▅▄
+wandb:      learning_rate ▂███▇▇▆▅▄▃▂▁
+wandb:          train_acc ▁▆▇▇████████
+wandb:         train_loss █▃▂▂▂▁▁▁▁▁▁▁
+wandb:       val_accuracy ▁▆▆▆▇█▇▇▇▇▇█
+wandb:           val_loss █▄▃▂▂▂▂▂▁▂▁▁
+wandb: 
+wandb: Run summary:
+wandb:   ema_val_accuracy 0.96131
+wandb:       ema_val_loss 0.86758
+wandb:              epoch 12
+wandb: epoch_time_seconds 99.22993
+wandb:      learning_rate 0.0
+wandb:           macro_f1 0.97304
+wandb:      test_accuracy 0.96884
+wandb:          train_acc 0.97701
+wandb:         train_loss 0.85215
+wandb:       val_accuracy 0.97173
+wandb:                 +2 ...
+wandb: 
+wandb:  View run exp_E1_convnext_small_288 at: https://wandb.ai/jumipe_meflipapesos/real-estate-classifier/runs/z77iu7be
+wandb:  View project at: https://wandb.ai/jumipe_meflipapesos/real-estate-classifier
+wandb: Synced 5 W&B file(s), 3 media file(s), 2 artifact file(s) and 0 other file(s)
+wandb: Find logs at: .\wandb\run-20260420_184451-z77iu7be\logs
+{
+  "experiment": "exp_E1_convnext_small_288",
+  "model": "convnext_small",
+  "transfer_strategy": "fine_tuning",
+  "best_val_accuracy": 0.9747023809523809,
+  "test_accuracy": 0.9688427299703264,
+  "macro_f1": 0.9730362982397543,
+  "weighted_f1": 0.9686136519774803,
+  "epochs_run": 12
+}

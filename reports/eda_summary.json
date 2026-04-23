@@ -1,0 +1,24 @@
+{
+  "n_training": 2985,
+  "n_validation": 1500,
+  "n_classes": 15,
+  "classes": [
+    "Bedroom",
+    "Coast",
+    "Forest",
+    "Highway",
+    "Industrial",
+    "Inside city",
+    "Kitchen",
+    "Living room",
+    "Mountain",
+    "Office",
+    "Open country",
+    "Store",
+    "Street",
+    "Suburb",
+    "Tall building"
+  ],
+  "mean_width": 273.06978818283164,
+  "mean_height": 244.95429208472686
+}

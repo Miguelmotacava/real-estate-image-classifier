@@ -1,0 +1,17 @@
+{
+  "experiment": "exp_E3_ensemble_C2heavy_C2_E2",
+  "method": "soft-voting + TTA hflip",
+  "members": [
+    {
+      "name": "exp_C2_convnext_tiny_regularized",
+      "weight": 0.6
+    },
+    {
+      "name": "exp_E2_convnext_base_288",
+      "weight": 0.4
+    }
+  ],
+  "test_accuracy": 0.9762611275964391,
+  "macro_f1": 0.9791815956633577,
+  "weighted_f1": 0.9762548310306876
+}

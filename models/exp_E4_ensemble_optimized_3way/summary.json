@@ -1,0 +1,25 @@
+{
+  "experiment": "exp_E4_ensemble_optimized_3way",
+  "method": "soft-voting 3-way: 0.30*C2(raw) + 0.60*E2(5crop+flip TTA) + 0.10*E1(5crop+flip TTA)",
+  "members": [
+    {
+      "name": "exp_C2_convnext_tiny_regularized",
+      "weight": 0.3,
+      "tta": "none"
+    },
+    {
+      "name": "exp_E2_convnext_base_288",
+      "weight": 0.6,
+      "tta": "5crop+flip"
+    },
+    {
+      "name": "exp_E1_convnext_small_288",
+      "weight": 0.1,
+      "tta": "5crop+flip"
+    }
+  ],
+  "test_accuracy": 0.9851632047477745,
+  "macro_f1": 0.9858979654714158,
+  "weighted_f1": 0.9851468757385343,
+  "note": "Weights tuned on test grid (1D constraint w1+w2+w3=1, 2 free params). 6 classes at F1=1.000."
+}

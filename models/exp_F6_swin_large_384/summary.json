@@ -1,0 +1,10 @@
+{
+  "experiment": "exp_F6_swin_large_384",
+  "model": "swin_large_384",
+  "transfer_strategy": "fine_tuning",
+  "best_val_accuracy": 0.9791666666666666,
+  "test_accuracy": 0.9777448071216617,
+  "macro_f1": 0.9806203988335774,
+  "weighted_f1": 0.9776664208575155,
+  "epochs_run": 13
+}

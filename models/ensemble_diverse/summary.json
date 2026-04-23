@@ -1,0 +1,11 @@
+{
+  "experiment": "exp_D1b_soft_voting_diverse",
+  "members": [
+    "exp_C2_convnext_tiny_regularized (convnext_tiny)",
+    "exp_B_deit_small_patch16_224 (deit_small_patch16_224)",
+    "exp_B_convnext_tiny (convnext_tiny)"
+  ],
+  "test_accuracy": 0.9629080118694362,
+  "macro_f1": 0.9662679391170613,
+  "weighted_f1": 0.9630857361538888
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\training\\Kitchen\\image_0129.jpg",
+    "true": "Kitchen",
+    "pred": "Bedroom"
+  },
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\training\\Open country\\image_0323.jpg",
+    "true": "Open country",
+    "pred": "Coast"
+  },
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\validation\\Tall building\\image_0227.jpg",
+    "true": "Tall building",
+    "pred": "Industrial"
+  },
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\training\\Open country\\image_0354.jpg",
+    "true": "Open country",
+    "pred": "Forest"
+  },
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\training\\Industrial\\image_0105.jpg",
+    "true": "Industrial",
+    "pred": "Inside city"
+  },
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\training\\Industrial\\image_0219.jpg",
+    "true": "Industrial",
+    "pred": "Inside city"
+  },
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\training\\Living room\\image_0240.jpg",
+    "true": "Living room",
+    "pred": "Bedroom"
+  },
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\training\\Industrial\\image_0091.jpg",
+    "true": "Industrial",
+    "pred": "Inside city"
+  },
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\training\\Store\\image_0213.jpg",
+    "true": "Store",
+    "pred": "Kitchen"
+  },
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\training\\Mountain\\image_0150.jpg",
+    "true": "Mountain",
+    "pred": "Open country"
+  },
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\training\\Living room\\image_0021.jpg",
+    "true": "Living room",
+    "pred": "Bedroom"
+  },
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\training\\Store\\image_0151.jpg",
+    "true": "Store",
+    "pred": "Office"
+  }
+]

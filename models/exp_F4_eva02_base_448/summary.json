@@ -1,0 +1,10 @@
+{
+  "experiment": "exp_F4_eva02_base_448",
+  "model": "eva02_base_448",
+  "transfer_strategy": "fine_tuning",
+  "best_val_accuracy": 0.9791666666666666,
+  "test_accuracy": 0.973293768545994,
+  "macro_f1": 0.9758334780786178,
+  "weighted_f1": 0.9732232275659657,
+  "epochs_run": 17
+}

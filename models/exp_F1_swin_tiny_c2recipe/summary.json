@@ -1,0 +1,10 @@
+{
+  "experiment": "exp_F1_swin_tiny_c2recipe",
+  "model": "swin_tiny_patch4_window7_224",
+  "transfer_strategy": "fine_tuning",
+  "best_val_accuracy": 0.9613095238095238,
+  "test_accuracy": 0.9525222551928784,
+  "macro_f1": 0.9568411329364391,
+  "weighted_f1": 0.9524096338512784,
+  "epochs_run": 12
+}

@@ -1,0 +1,11 @@
+{
+  "experiment": "exp_B_resnet50",
+  "model": "resnet50",
+  "transfer_strategy": "fine_tuning",
+  "best_val_accuracy": 0.875,
+  "test_accuracy": 0.8649851632047477,
+  "macro_f1": 0.8686837429794761,
+  "weighted_f1": 0.8658363282972102,
+  "epochs_run": 3,
+  "train_seconds": 89.7
+}

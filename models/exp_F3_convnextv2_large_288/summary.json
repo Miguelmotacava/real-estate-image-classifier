@@ -1,0 +1,10 @@
+{
+  "experiment": "exp_F3_convnextv2_large_288",
+  "model": "convnextv2_large_22k",
+  "transfer_strategy": "fine_tuning",
+  "best_val_accuracy": 0.9747023809523809,
+  "test_accuracy": 0.9747774480712166,
+  "macro_f1": 0.9780572278613562,
+  "weighted_f1": 0.9746480804861426,
+  "epochs_run": 24
+}

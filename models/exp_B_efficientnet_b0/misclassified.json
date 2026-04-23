@@ -1,0 +1,62 @@
+[
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\validation\\Tall building\\image_0110.jpg",
+    "true": "Tall building",
+    "pred": "Inside city"
+  },
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\validation\\Office\\image_0161.jpg",
+    "true": "Office",
+    "pred": "Living room"
+  },
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\training\\Mountain\\image_0150.jpg",
+    "true": "Mountain",
+    "pred": "Open country"
+  },
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\training\\Inside city\\image_0233.jpg",
+    "true": "Inside city",
+    "pred": "Street"
+  },
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\training\\Forest\\image_0171.jpg",
+    "true": "Forest",
+    "pred": "Industrial"
+  },
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\training\\Street\\image_0135.jpg",
+    "true": "Street",
+    "pred": "Kitchen"
+  },
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\training\\Industrial\\image_0237.jpg",
+    "true": "Industrial",
+    "pred": "Inside city"
+  },
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\training\\Industrial\\image_0309.jpg",
+    "true": "Industrial",
+    "pred": "Tall building"
+  },
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\validation\\Forest\\image_0016.jpg",
+    "true": "Forest",
+    "pred": "Industrial"
+  },
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\training\\Open country\\image_0044.jpg",
+    "true": "Open country",
+    "pred": "Forest"
+  },
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\training\\Industrial\\image_0274.jpg",
+    "true": "Industrial",
+    "pred": "Street"
+  },
+  {
+    "path": "C:\\Users\\motam\\Escritorio\\Máster Big Data 2025-2026\\2º Cuatrimestre\\Machine Learning II\\Practica deep learning\\dataset\\training\\Open country\\image_0108.jpg",
+    "true": "Open country",
+    "pred": "Coast"
+  }
+]

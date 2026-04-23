@@ -1,0 +1,108 @@
+{
+  "test_accuracy": 0.2922848664688427,
+  "report": {
+    "Bedroom": {
+      "precision": 0.16666666666666666,
+      "recall": 0.15625,
+      "f1-score": 0.16129032258064516,
+      "support": 32.0
+    },
+    "Coast": {
+      "precision": 0.3137254901960784,
+      "recall": 0.2962962962962963,
+      "f1-score": 0.3047619047619048,
+      "support": 54.0
+    },
+    "Forest": {
+      "precision": 0.48,
+      "recall": 0.24489795918367346,
+      "f1-score": 0.32432432432432434,
+      "support": 49.0
+    },
+    "Highway": {
+      "precision": 0.21875,
+      "recall": 0.1794871794871795,
+      "f1-score": 0.19718309859154928,
+      "support": 39.0
+    },
+    "Industrial": {
+      "precision": 0.16666666666666666,
+      "recall": 0.1276595744680851,
+      "f1-score": 0.14457831325301204,
+      "support": 47.0
+    },
+    "Inside city": {
+      "precision": 0.3387096774193548,
+      "recall": 0.45652173913043476,
+      "f1-score": 0.3888888888888889,
+      "support": 46.0
+    },
+    "Kitchen": {
+      "precision": 0.13043478260869565,
+      "recall": 0.1935483870967742,
+      "f1-score": 0.15584415584415584,
+      "support": 31.0
+    },
+    "Living room": {
+      "precision": 0.275,
+      "recall": 0.25,
+      "f1-score": 0.2619047619047619,
+      "support": 44.0
+    },
+    "Mountain": {
+      "precision": 0.3541666666666667,
+      "recall": 0.30357142857142855,
+      "f1-score": 0.3269230769230769,
+      "support": 56.0
+    },
+    "Office": {
+      "precision": 0.23529411764705882,
+      "recall": 0.125,
+      "f1-score": 0.16326530612244897,
+      "support": 32.0
+    },
+    "Open country": {
+      "precision": 0.288135593220339,
+      "recall": 0.27419354838709675,
+      "f1-score": 0.2809917355371901,
+      "support": 62.0
+    },
+    "Store": {
+      "precision": 0.2222222222222222,
+      "recall": 0.375,
+      "f1-score": 0.27906976744186046,
+      "support": 48.0
+    },
+    "Street": {
+      "precision": 0.37777777777777777,
+      "recall": 0.38636363636363635,
+      "f1-score": 0.38202247191011235,
+      "support": 44.0
+    },
+    "Suburb": {
+      "precision": 0.25,
+      "recall": 0.25,
+      "f1-score": 0.25,
+      "support": 36.0
+    },
+    "Tall building": {
+      "precision": 0.4696969696969697,
+      "recall": 0.5740740740740741,
+      "f1-score": 0.5166666666666667,
+      "support": 54.0
+    },
+    "accuracy": 0.2922848664688427,
+    "macro avg": {
+      "precision": 0.28581644205256646,
+      "recall": 0.2795242548705786,
+      "f1-score": 0.2758476529833732,
+      "support": 674.0
+    },
+    "weighted avg": {
+      "precision": 0.2978677947917512,
+      "recall": 0.2922848664688427,
+      "f1-score": 0.2882752539934946,
+      "support": 674.0
+    }
+  }
+}

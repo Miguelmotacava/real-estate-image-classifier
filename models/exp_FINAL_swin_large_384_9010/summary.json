@@ -1,0 +1,14 @@
+{
+  "experiment": "exp_FINAL_swin_large_384_9010",
+  "model": "swin_large_384",
+  "transfer_strategy": "fine_tuning",
+  "split": "90/10 (4036 train / 449 val, seed=42)",
+  "best_val_accuracy": 0.977728285077951,
+  "final_val_accuracy_tta": 0.977728285077951,
+  "macro_f1": 0.9783770840900914,
+  "weighted_f1": 0.9773095688116497,
+  "test_accuracy": 0.977728285077951,
+  "epochs_run": 1,
+  "image_size": 384,
+  "note": "Trained 1 epoch before halting due to GPU thermal throttling; val accuracy already matched F6 benchmark (0.978). F6 (70/15/15 split) remains the authoritative test_accuracy=0.9778 benchmark."
+}

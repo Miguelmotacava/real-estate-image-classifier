@@ -1,0 +1,82 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+C:\Users\motam\AppData\Local\Programs\Python\Python313\Lib\site-packages\huggingface_hub\file_download.py:138: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in C:\Users\motam\.cache\huggingface\hub\models--timm--convnext_base.fb_in22k_ft_in1k. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from WANDB_API_KEY.
+wandb: Currently logged in as: mmota (jumipe_meflipapesos) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run ustagpcx
+wandb: Tracking run with wandb version 0.26.0
+wandb: Run data is saved locally in C:\Users\motam\Escritorio\Máster Big Data 2025-2026\2º Cuatrimestre\Machine Learning II\Practica deep learning\wandb\run-20260420_192235-ustagpcx
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run exp_E2_convnext_base_288
+wandb:  View project at https://wandb.ai/jumipe_meflipapesos/real-estate-classifier
+wandb:  View run at https://wandb.ai/jumipe_meflipapesos/real-estate-classifier/runs/ustagpcx
+C:\Users\motam\Escritorio\Máster Big Data 2025-2026\2º Cuatrimestre\Machine Learning II\Practica deep learning\src\utils\train_loop.py:152: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler() if (device.type == "cuda" and supports_amp(device)) else None
+=== Hardware Report ===
+PyTorch: 2.6.0+cu124
+Platform: Windows 11 (AMD64)
+CUDA GPU 0: NVIDIA GeForce RTX 4060 Laptop GPU - 8187 MB VRAM
+Selected device: cuda
+[exp_E2_convnext_base_288] epoch 01/20 - train_loss 1.977 acc 0.521 - val_loss 1.187 acc 0.891 - ema_val 0.188 - lr 2.5e-06 - 138.0s
+[exp_E2_convnext_base_288] epoch 02/20 - train_loss 1.135 acc 0.884 - val_loss 0.962 acc 0.951 - ema_val 0.475 - lr 5.0e-06 - 155.9s
+[exp_E2_convnext_base_288] epoch 03/20 - train_loss 1.012 acc 0.929 - val_loss 0.932 acc 0.949 - ema_val 0.757 - lr 5.0e-06 - 167.6s
+[exp_E2_convnext_base_288] epoch 04/20 - train_loss 0.984 acc 0.939 - val_loss 0.913 acc 0.961 - ema_val 0.878 - lr 4.8e-06 - 177.3s
+[exp_E2_convnext_base_288] epoch 05/20 - train_loss 0.951 acc 0.945 - val_loss 0.899 acc 0.967 - ema_val 0.924 - lr 4.7e-06 - 152.6s
+[exp_E2_convnext_base_288] epoch 06/20 - train_loss 0.931 acc 0.955 - val_loss 0.887 acc 0.972 - ema_val 0.945 - lr 4.4e-06 - 150.3s
+[exp_E2_convnext_base_288] epoch 07/20 - train_loss 0.914 acc 0.966 - val_loss 0.881 acc 0.970 - ema_val 0.958 - lr 4.1e-06 - 155.4s
+[exp_E2_convnext_base_288] epoch 08/20 - train_loss 0.909 acc 0.963 - val_loss 0.879 acc 0.969 - ema_val 0.961 - lr 3.7e-06 - 159.7s
+[exp_E2_convnext_base_288] epoch 09/20 - train_loss 0.902 acc 0.963 - val_loss 0.876 acc 0.972 - ema_val 0.966 - lr 3.4e-06 - 172.2s
+[exp_E2_convnext_base_288] epoch 10/20 - train_loss 0.884 acc 0.972 - val_loss 0.872 acc 0.972 - ema_val 0.967 - lr 2.9e-06 - 152.2s
+[exp_E2_convnext_base_288] epoch 11/20 - train_loss 0.887 acc 0.969 - val_loss 0.864 acc 0.982 - ema_val 0.966 - lr 2.5e-06 - 142.0s
+[exp_E2_convnext_base_288] epoch 12/20 - train_loss 0.872 acc 0.975 - val_loss 0.864 acc 0.975 - ema_val 0.967 - lr 2.1e-06 - 160.0s
+[exp_E2_convnext_base_288] epoch 13/20 - train_loss 0.870 acc 0.976 - val_loss 0.860 acc 0.982 - ema_val 0.970 - lr 1.6e-06 - 148.2s
+[exp_E2_convnext_base_288] epoch 14/20 - train_loss 0.870 acc 0.976 - val_loss 0.858 acc 0.981 - ema_val 0.969 - lr 1.3e-06 - 142.2s
+[exp_E2_convnext_base_288] epoch 15/20 - train_loss 0.867 acc 0.979 - val_loss 0.858 acc 0.981 - ema_val 0.973 - lr 8.9e-07 - 163.5s
+[exp_E2_convnext_base_288] epoch 16/20 - train_loss 0.871 acc 0.973 - val_loss 0.857 acc 0.979 - ema_val 0.973 - lr 5.8e-07 - 149.5s
+[exp_E2_convnext_base_288] epoch 17/20 - train_loss 0.868 acc 0.976 - val_loss 0.857 acc 0.976 - ema_val 0.975 - lr 3.3e-07 - 152.1s
+[exp_E2_convnext_base_288] early stopping at epoch 17
+wandb: updating run metadata; uploading artifact run-ustagpcx-per_class_metrics
+wandb: uploading artifact run-ustagpcx-per_class_metrics
+wandb: uploading media\images\confusion_matrix_17_bd7cc962cbbf05362ff5.png; uploading media\images\roc_curves_18_d8ba6eca68dc8fdbba26.png; uploading media\table\per_class_metrics_19_09a0f204a765d5582cb8.table.json; uploading output.log; uploading wandb-summary.json (+ 1 more)
+wandb: uploading media\images\roc_curves_18_d8ba6eca68dc8fdbba26.png; uploading media\table\per_class_metrics_19_09a0f204a765d5582cb8.table.json; uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: 
+wandb: Run history:
+wandb:   ema_val_accuracy ▁▄▆▇█████████████
+wandb:       ema_val_loss █▆▄▃▂▂▂▁▁▁▁▁▁▁▁▁▁
+wandb:              epoch ▁▁▂▂▃▃▄▄▅▅▅▆▆▇▇██
+wandb: epoch_time_seconds ▁▄▆█▄▃▄▅▇▄▂▅▃▂▆▃▄
+wandb:      learning_rate ▄███▇▇▇▆▆▅▄▄▃▂▂▁▁
+wandb:          train_acc ▁▇▇▇▇████████████
+wandb:         train_loss █▃▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:       val_accuracy ▁▆▅▆▇▇▇▇▇▇█▇█████
+wandb:           val_loss █▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:   ema_val_accuracy 0.9747
+wandb:       ema_val_loss 0.86119
+wandb:              epoch 17
+wandb: epoch_time_seconds 152.0824
+wandb:      learning_rate 0.0
+wandb:           macro_f1 0.97626
+wandb:      test_accuracy 0.97329
+wandb:          train_acc 0.9764
+wandb:         train_loss 0.86823
+wandb:       val_accuracy 0.97619
+wandb:                 +2 ...
+wandb: 
+wandb:  View run exp_E2_convnext_base_288 at: https://wandb.ai/jumipe_meflipapesos/real-estate-classifier/runs/ustagpcx
+wandb:  View project at: https://wandb.ai/jumipe_meflipapesos/real-estate-classifier
+wandb: Synced 5 W&B file(s), 3 media file(s), 2 artifact file(s) and 0 other file(s)
+wandb: Find logs at: .\wandb\run-20260420_192235-ustagpcx\logs
+{
+  "experiment": "exp_E2_convnext_base_288",
+  "model": "convnext_base",
+  "transfer_strategy": "fine_tuning",
+  "best_val_accuracy": 0.9821428571428571,
+  "test_accuracy": 0.973293768545994,
+  "macro_f1": 0.976263506260357,
+  "weighted_f1": 0.9732185101423563,
+  "epochs_run": 17
+}

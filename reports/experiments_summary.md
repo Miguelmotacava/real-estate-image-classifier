@@ -1,0 +1,40 @@
+# Comparativa de experimentos
+
+| experiment                       | model                        | transfer_strategy   |   best_val_accuracy |   test_accuracy |   macro_f1 |   weighted_f1 |   epochs_run |
+|:---------------------------------|:-----------------------------|:--------------------|--------------------:|----------------:|-----------:|--------------:|-------------:|
+| exp_F7_ensemble_f3_f4_f6         | nan                          | nan                 |            nan      |          0.9896 |     0.9908 |        0.9896 |          nan |
+| exp_F9_mega_ensemble             | nan                          | nan                 |            nan      |          0.9896 |     0.9908 |        0.9896 |          nan |
+| exp_F5_ensemble_f3_f4            | nan                          | nan                 |            nan      |          0.9881 |     0.9894 |        0.9881 |          nan |
+| exp_E5_ensemble_4way             | nan                          | nan                 |            nan      |          0.9866 |     0.9881 |        0.9867 |          nan |
+| exp_E4_ensemble_optimized_3way   | nan                          | nan                 |            nan      |          0.9852 |     0.9859 |        0.9851 |          nan |
+| exp_E3_ensemble_Bheavy_C2_E2     | nan                          | nan                 |            nan      |          0.9822 |     0.9841 |        0.9822 |          nan |
+| exp_E3_ensemble_C2_B_weighted    | nan                          | nan                 |            nan      |          0.9822 |     0.9841 |        0.9822 |          nan |
+| exp_E3_ensemble_equal_C2_E2      | nan                          | nan                 |            nan      |          0.9792 |     0.9815 |        0.9792 |          nan |
+| exp_F6_swin_large_384            | swin_large_384               | fine_tuning         |              0.9792 |          0.9777 |     0.9806 |        0.9777 |           13 |
+| exp_FINAL_swin_large_384_9010    | swin_large_384               | fine_tuning         |              0.9777 |          0.9777 |     0.9784 |        0.9773 |            1 |
+| exp_F8_beit_large_224            | beit_large_224               | fine_tuning         |              0.9747 |          0.9763 |     0.9787 |        0.9763 |           14 |
+| exp_E3_ensemble_C2heavy_C2_E2    | nan                          | nan                 |            nan      |          0.9763 |     0.9792 |        0.9763 |          nan |
+| exp_E3_ensemble_trio_C2_E1_E2    | nan                          | nan                 |            nan      |          0.9763 |     0.9795 |        0.9762 |          nan |
+| exp_C2_convnext_tiny_regularized | convnext_tiny                | fine_tuning         |              0.9673 |          0.9748 |     0.9767 |        0.9748 |           12 |
+| exp_F3_convnextv2_large_288      | convnextv2_large_22k         | fine_tuning         |              0.9747 |          0.9748 |     0.9781 |        0.9746 |           24 |
+| exp_E2_convnext_base_288         | convnext_base                | fine_tuning         |              0.9821 |          0.9733 |     0.9763 |        0.9732 |           17 |
+| exp_F4_eva02_base_448            | eva02_base_448               | fine_tuning         |              0.9792 |          0.9733 |     0.9758 |        0.9732 |           17 |
+| exp_F2_convnextv2_base_22k       | convnextv2_base_22k          | fine_tuning         |              0.9717 |          0.9733 |     0.9764 |        0.9732 |           15 |
+| exp_D1c_soft_voting_c2c1         | nan                          | nan                 |            nan      |          0.9703 |     0.9735 |        0.9703 |          nan |
+| exp_D1_soft_voting               | nan                          | nan                 |            nan      |          0.9703 |     0.9735 |        0.9703 |          nan |
+| exp_D1c_soft_voting_c2c1         | nan                          | nan                 |            nan      |          0.9703 |     0.9735 |        0.9703 |          nan |
+| exp_E1_convnext_small_288        | convnext_small               | fine_tuning         |              0.9747 |          0.9688 |     0.973  |        0.9686 |           12 |
+| exp_D1b_soft_voting_diverse      | nan                          | nan                 |            nan      |          0.9629 |     0.9663 |        0.9631 |          nan |
+| exp_D1b_soft_voting_diverse      | nan                          | nan                 |            nan      |          0.9629 |     0.9663 |        0.9631 |          nan |
+| exp_C1_convnext_tiny_intensive   | convnext_tiny                | fine_tuning         |              0.9598 |          0.9614 |     0.9645 |        0.9613 |           10 |
+| exp_F1_swin_tiny_c2recipe        | swin_tiny_patch4_window7_224 | fine_tuning         |              0.9613 |          0.9525 |     0.9568 |        0.9524 |           12 |
+| exp_B_convnext_tiny              | convnext_tiny                | fine_tuning         |              0.9449 |          0.9436 |     0.9478 |        0.9435 |            3 |
+| exp_B_deit_small_patch16_224     | deit_small_patch16_224       | fine_tuning         |              0.9405 |          0.9228 |     0.9213 |        0.9229 |            3 |
+| exp_B_regnety_008                | regnety_008                  | fine_tuning         |              0.9092 |          0.9036 |     0.9015 |        0.9039 |            3 |
+| exp_B_resnet50                   | resnet50                     | fine_tuning         |              0.875  |          0.865  |     0.8687 |        0.8658 |            3 |
+| exp_B_efficientnet_b0            | efficientnet_b0              | fine_tuning         |              0.8527 |          0.8591 |     0.8609 |        0.8588 |            3 |
+| exp_B_efficientnet_b3            | efficientnet_b3              | fine_tuning         |              0.8274 |          0.8427 |     0.8446 |        0.8415 |            3 |
+| exp_A4_mobilenetv3_finetune      | mobilenetv3_small_100        | fine_tuning         |              0.7143 |          0.6691 |     0.6592 |        0.6664 |            3 |
+| exp_A3_efficientnet_b0           | efficientnet_b0              | fine_tuning         |              0.689  |          0.6691 |     0.6596 |        0.6665 |            2 |
+| exp_A2_mobilenetv3_small         | mobilenetv3_small_100        | feature_extraction  |              0.3185 |          0.2923 |     0.2758 |        0.2883 |            2 |
+| exp_A1_scratch_cnn               | scratch_cnn                  | fine_tuning         |              0.2932 |          0.2819 |     0.212  |        0.2313 |            2 |

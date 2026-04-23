@@ -1,0 +1,11 @@
+{
+  "experiment": "exp_B_deit_small_patch16_224",
+  "model": "deit_small_patch16_224",
+  "transfer_strategy": "fine_tuning",
+  "best_val_accuracy": 0.9404761904761905,
+  "test_accuracy": 0.9228486646884273,
+  "macro_f1": 0.9213135421393648,
+  "weighted_f1": 0.9228939094168602,
+  "epochs_run": 3,
+  "train_seconds": 81.8
+}

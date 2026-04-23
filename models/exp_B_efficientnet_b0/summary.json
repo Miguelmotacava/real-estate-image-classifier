@@ -1,0 +1,11 @@
+{
+  "experiment": "exp_B_efficientnet_b0",
+  "model": "efficientnet_b0",
+  "transfer_strategy": "fine_tuning",
+  "best_val_accuracy": 0.8526785714285714,
+  "test_accuracy": 0.8590504451038575,
+  "macro_f1": 0.8609483212119794,
+  "weighted_f1": 0.8587766324706041,
+  "epochs_run": 3,
+  "train_seconds": 86.5
+}

@@ -1,0 +1,31 @@
+{
+  "experiment": "exp_F9_mega_ensemble",
+  "method": "soft-voting 0.20*F3_convnextv2_large_288_multiscale + 0.40*F4_eva02_base_448_multiscale + 0.30*F6_swin_large_384_multiscale + 0.10*F8_beit_large_224_multiscale",
+  "members": [
+    {
+      "name": "exp_F3_convnextv2_large_288",
+      "weight": 0.2,
+      "tta": "multiscale_30view"
+    },
+    {
+      "name": "exp_F4_eva02_base_448",
+      "weight": 0.4,
+      "tta": "multiscale_30view"
+    },
+    {
+      "name": "exp_F6_swin_large_384",
+      "weight": 0.3,
+      "tta": "multiscale_30view"
+    },
+    {
+      "name": "exp_F8_beit_large_224",
+      "weight": 0.1,
+      "tta": "multiscale_30view"
+    }
+  ],
+  "val_accuracy": 0.9821428571428571,
+  "test_accuracy": 0.9896142433234422,
+  "macro_f1": 0.9907823670858397,
+  "weighted_f1": 0.9895841857473737,
+  "note": "Mega-ensemble of 4 F-series multiscale models. Grid step adapts to dimensionality."
+}

@@ -1,0 +1,17 @@
+{
+  "experiment": "exp_D1c_soft_voting_c2c1",
+  "method": "soft-voting",
+  "members": [
+    {
+      "name": "exp_C2_convnext_tiny_regularized",
+      "weight": 1.0
+    },
+    {
+      "name": "exp_C1_convnext_tiny_intensive",
+      "weight": 1.0
+    }
+  ],
+  "test_accuracy": 0.9703264094955489,
+  "macro_f1": 0.973528089891266,
+  "weighted_f1": 0.9702953924334409
+}

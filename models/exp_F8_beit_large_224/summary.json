@@ -1,0 +1,10 @@
+{
+  "experiment": "exp_F8_beit_large_224",
+  "model": "beit_large_224",
+  "transfer_strategy": "fine_tuning",
+  "best_val_accuracy": 0.9747023809523809,
+  "test_accuracy": 0.9762611275964391,
+  "macro_f1": 0.978685619184158,
+  "weighted_f1": 0.9763159039336694,
+  "epochs_run": 14
+}

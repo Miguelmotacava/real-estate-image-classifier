@@ -1,0 +1,26 @@
+{
+  "experiment": "exp_F7_ensemble_f3_f4_f6",
+  "method": "soft-voting 3-way: 0.25*F3_multiscale + 0.35*F4_multiscale + 0.40*F6_multiscale",
+  "members": [
+    {
+      "name": "exp_F3_convnextv2_large_288",
+      "weight": 0.25,
+      "tta": "multiscale_30view"
+    },
+    {
+      "name": "exp_F4_eva02_base_448",
+      "weight": 0.35,
+      "tta": "multiscale_30view"
+    },
+    {
+      "name": "exp_F6_swin_large_384",
+      "weight": 0.4,
+      "tta": "multiscale_30view"
+    }
+  ],
+  "val_accuracy": 0.9821428571428571,
+  "test_accuracy": 0.9896142433234422,
+  "macro_f1": 0.9907823670858397,
+  "weighted_f1": 0.9895841857473737,
+  "note": "CNN (ConvNeXtV2 Large) + ViT (EVA02 Base) + Swin hierarchical (Swin Large) ensemble. Three architectural families voting."
+}

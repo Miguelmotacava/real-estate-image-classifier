@@ -1,0 +1,10 @@
+{
+  "experiment": "exp_E1_convnext_small_288",
+  "model": "convnext_small",
+  "transfer_strategy": "fine_tuning",
+  "best_val_accuracy": 0.9747023809523809,
+  "test_accuracy": 0.9688427299703264,
+  "macro_f1": 0.9730362982397543,
+  "weighted_f1": 0.9686136519774803,
+  "epochs_run": 12
+}

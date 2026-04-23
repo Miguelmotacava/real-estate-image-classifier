@@ -1,0 +1,11 @@
+{
+  "experiment": "exp_B_regnety_008",
+  "model": "regnety_008",
+  "transfer_strategy": "fine_tuning",
+  "best_val_accuracy": 0.9092261904761905,
+  "test_accuracy": 0.9035608308605341,
+  "macro_f1": 0.9015174884528364,
+  "weighted_f1": 0.9038965632502716,
+  "epochs_run": 3,
+  "train_seconds": 81.4
+}

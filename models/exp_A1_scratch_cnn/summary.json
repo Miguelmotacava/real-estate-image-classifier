@@ -1,0 +1,13 @@
+{
+  "experiment": "exp_A1_scratch_cnn",
+  "model": "scratch_cnn",
+  "transfer_strategy": "fine_tuning",
+  "best_val_accuracy": 0.2931547619047619,
+  "test_accuracy": 0.2818991097922849,
+  "macro_f1": 0.212043096268976,
+  "weighted_f1": 0.23128006851104674,
+  "epochs_run": 2,
+  "train_seconds": 107.6,
+  "image_size": 160,
+  "train_samples_used": 1600
+}

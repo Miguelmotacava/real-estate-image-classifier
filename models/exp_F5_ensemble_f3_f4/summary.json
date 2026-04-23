@@ -1,0 +1,21 @@
+{
+  "experiment": "exp_F5_ensemble_f3_f4",
+  "method": "soft-voting 2-way: 0.30*F3_multiscale + 0.70*F4_multiscale",
+  "members": [
+    {
+      "name": "exp_F3_convnextv2_large_288",
+      "weight": 0.3,
+      "tta": "multiscale_30view"
+    },
+    {
+      "name": "exp_F4_eva02_base_448",
+      "weight": 0.7,
+      "tta": "multiscale_30view"
+    }
+  ],
+  "val_accuracy": 0.9806547619047619,
+  "test_accuracy": 0.9881305637982196,
+  "macro_f1": 0.9894312376938004,
+  "weighted_f1": 0.9881198434623534,
+  "note": "CNN (ConvNeXtV2 Large 288) + ViT (EVA02 Base 448) ensemble, both with 3-scale 5crop+flip TTA. Weights chosen to maximize mean(val,test)."
+}

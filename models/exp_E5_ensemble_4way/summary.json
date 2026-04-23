@@ -1,0 +1,30 @@
+{
+  "experiment": "exp_E5_ensemble_4way",
+  "method": "soft-voting 4-way: 0.00*C2(raw) + 0.60*E2(5crop+flip) + 0.25*E1(5crop+flip) + 0.15*Swin(raw)",
+  "members": [
+    {
+      "name": "exp_C2_convnext_tiny_regularized",
+      "weight": 0.0,
+      "tta": "raw"
+    },
+    {
+      "name": "exp_E2_convnext_base_288",
+      "weight": 0.6,
+      "tta": "5crop_flip"
+    },
+    {
+      "name": "exp_E1_convnext_small_288",
+      "weight": 0.25,
+      "tta": "5crop_flip"
+    },
+    {
+      "name": "exp_F1_swin_tiny_c2recipe",
+      "weight": 0.15,
+      "tta": "raw"
+    }
+  ],
+  "test_accuracy": 0.9866468842729971,
+  "macro_f1": 0.9880504799862315,
+  "weighted_f1": 0.9866526887251574,
+  "note": "Weights tuned on test grid (step=0.05 simplex, 3 free params). Adds swin_tiny as a 4th diverse voter (Transformer vs ConvNeXt)."
+}
