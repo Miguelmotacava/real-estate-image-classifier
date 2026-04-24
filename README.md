@@ -90,7 +90,11 @@ Cómo navegar W&B (tabla de runs, comparativas, sweep, dónde está la accuracy)
 
 | Experimento | Modelo | Estrategia | Train acc | Val acc | Test acc | F1 macro |
 |---|---|---|---:|---:|---:|---:|
-| **exp_FINAL_swin_large_384_9010** ⭐ (desplegado) | Swin-Large 384 | FT 384px + 90/10 split + EMA + TTA hflip + cosine+warmup (8 epochs, early-stop) | **0.991** | **0.9866** | *n/a* | **0.988** |
+| **exp_FINAL_ensemble_9010** ⭐ (máxima accuracy) | F3 + F4 + Swin-L + F8 (90/10 c/u) | soft voting 4-way: 0.15·F3 + 0.60·F4 + 0.25·F6 + 0.00·F8, multi-scale 30-view TTA por miembro | — | **0.9933** | *n/a* | **0.994** |
+| **exp_FINAL_swin_large_384_9010** ⭐ (recomendado single) | Swin-Large 384 | FT 384px + 90/10 split + EMA + TTA hflip + cosine+warmup (8 epochs, early-stop) | **0.991** | **0.9866** | *n/a* | **0.988** |
+| exp_FINAL_F4_9010 | EVA02-Base 448 | FT 448px + 90/10 + cosine + EMA (6 ep, early-stop) | 0.972 | 0.9866 | *n/a* | 0.987 |
+| exp_FINAL_F3_9010 | ConvNeXtV2-Large 288 | FT 288px + 90/10 + cosine + EMA (8 ep) | 1.000 | 0.9822 | *n/a* | 0.983 |
+| exp_FINAL_F8_9010 | BEiT-Large 224 | FT 224px + 90/10 + cosine + EMA (9 ep, early-stop) | — | 0.9755 | *n/a* | 0.975 |
 | **exp_F9_mega_ensemble** (modo investigación) | ConvNeXtV2-L + EVA02-B + Swin-L + BEiT-L | soft voting 4-way multi-scale: 0.20·F3 + 0.40·F4 + 0.30·F6 + 0.10·F8 | 0.99+ | **0.982** | **0.990** | **0.991** |
 | exp_F7_ensemble_f3_f4_f6 | ConvNeXtV2-L + EVA02-B + Swin-L | soft voting 3-way multi-scale: 0.25·F3 + 0.35·F4 + 0.40·F6 | 0.99+ | **0.982** | **0.990** | **0.991** |
 | exp_F5_ensemble_f3_f4 | ConvNeXtV2-L + EVA02-B | soft voting 2-way CNN+ViT: 0.30·F3 + 0.70·F4 (multi-scale TTA) | 0.99+ | 0.981 | 0.988 | 0.989 |

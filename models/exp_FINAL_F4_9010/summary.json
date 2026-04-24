@@ -1,0 +1,14 @@
+{
+  "experiment": "exp_FINAL_F4_9010",
+  "model": "eva02_base_448",
+  "transfer_strategy": "fine_tuning",
+  "split": "90/10",
+  "best_val_accuracy": 0.9866369710467706,
+  "final_val_accuracy_tta": 0.9866369710467706,
+  "macro_f1": 0.9869791122920797,
+  "weighted_f1": 0.9865865043025136,
+  "test_accuracy": 0.9866369710467706,
+  "epochs_run": 6,
+  "image_size": 448,
+  "ensemble_member": "F4"
+}

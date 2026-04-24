@@ -1,0 +1,14 @@
+{
+  "experiment": "exp_FINAL_F8_9010",
+  "model": "beit_large_224",
+  "transfer_strategy": "fine_tuning",
+  "split": "90/10",
+  "best_val_accuracy": 0.9755011135857461,
+  "final_val_accuracy_tta": 0.9755011135857461,
+  "macro_f1": 0.9751622301246319,
+  "weighted_f1": 0.9752741377390192,
+  "test_accuracy": 0.9755011135857461,
+  "epochs_run": 9,
+  "image_size": 224,
+  "ensemble_member": "F8"
+}

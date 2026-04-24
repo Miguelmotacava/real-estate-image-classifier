@@ -1,0 +1,42 @@
+{
+  "experiment": "exp_FINAL_ensemble_9010",
+  "method": "soft-voting 4-way + multi-scale 30-view TTA per member (90/10 split)",
+  "members": [
+    {
+      "tag": "F3",
+      "exp": "exp_FINAL_F3_9010",
+      "model_name": "convnextv2_large_22k",
+      "image_size": 288,
+      "weight": 0.15
+    },
+    {
+      "tag": "F4",
+      "exp": "exp_FINAL_F4_9010",
+      "model_name": "eva02_base_448",
+      "image_size": 448,
+      "weight": 0.6
+    },
+    {
+      "tag": "F6",
+      "exp": "exp_FINAL_swin_large_384_9010",
+      "model_name": "swin_large_384",
+      "image_size": 384,
+      "weight": 0.25
+    },
+    {
+      "tag": "F8",
+      "exp": "exp_FINAL_F8_9010",
+      "model_name": "beit_large_224",
+      "image_size": 224,
+      "weight": 0.0
+    }
+  ],
+  "val_accuracy": 0.9933184855233853,
+  "macro_f1": 0.9937878314149502,
+  "weighted_f1": 0.9933056386682146,
+  "test_accuracy": 0.9933184855233853,
+  "n_members": 4,
+  "tta": "multiscale_30view_per_member",
+  "split": "90/10 (val=449)",
+  "note": "Hackathon ensemble: 4 backbones (90/10) + multi-scale 30-view TTA (3 scales \u00d7 5 crops \u00d7 2 flips). Weights chosen by grid search on the 90/10 val to maximize accuracy. Latency ~30\u00d7 per model = 120\u00d7 baseline single. Optimized for ranking, not production speed."
+}

@@ -1,0 +1,34 @@
+{
+  "members": [
+    {
+      "exp": "exp_FINAL_F3_9010",
+      "model_name": "convnextv2_large_22k",
+      "image_size": 288,
+      "weight": 0.15
+    },
+    {
+      "exp": "exp_FINAL_F4_9010",
+      "model_name": "eva02_base_448",
+      "image_size": 448,
+      "weight": 0.6
+    },
+    {
+      "exp": "exp_FINAL_swin_large_384_9010",
+      "model_name": "swin_large_384",
+      "image_size": 384,
+      "weight": 0.25
+    },
+    {
+      "exp": "exp_FINAL_F8_9010",
+      "model_name": "beit_large_224",
+      "image_size": 224,
+      "weight": 0.0
+    }
+  ],
+  "tta": "multiscale_30view",
+  "scales": [
+    0.82,
+    0.88,
+    0.94
+  ]
+}

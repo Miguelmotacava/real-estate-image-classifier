@@ -1,0 +1,68 @@
+[
+  {
+    "epoch": 1,
+    "train_loss": 0.8335548246462116,
+    "train_acc": 0.9100594648166501,
+    "val_loss": 0.6739259660907737,
+    "val_accuracy": 0.9532293986636972,
+    "learning_rate": 1.25e-05,
+    "epoch_time_seconds": 449.233393907547,
+    "ema_val_accuracy": 0.9710467706013363,
+    "ema_val_loss": 0.9298952650652166
+  },
+  {
+    "epoch": 2,
+    "train_loss": 0.8064083483575948,
+    "train_acc": 0.9060951437066402,
+    "val_loss": 0.6683863478407828,
+    "val_accuracy": 0.9599109131403119,
+    "learning_rate": 2.5e-05,
+    "epoch_time_seconds": 477.0745189189911,
+    "ema_val_accuracy": 0.9866369710467706,
+    "ema_val_loss": 0.6414185640275611
+  },
+  {
+    "epoch": 3,
+    "train_loss": 0.7023726072609129,
+    "train_acc": 0.9464816650148662,
+    "val_loss": 0.6781990610411545,
+    "val_accuracy": 0.9532293986636972,
+    "learning_rate": 2.438820645368942e-05,
+    "epoch_time_seconds": 485.1509096622467,
+    "ema_val_accuracy": 0.9821826280623608,
+    "ema_val_loss": 0.6132308604457065
+  },
+  {
+    "epoch": 4,
+    "train_loss": 0.6870656328938525,
+    "train_acc": 0.9521803766105055,
+    "val_loss": 0.6641350663318931,
+    "val_accuracy": 0.9665924276169265,
+    "learning_rate": 2.261271242968684e-05,
+    "epoch_time_seconds": 497.8083288669586,
+    "ema_val_accuracy": 0.9821826280623608,
+    "ema_val_loss": 0.6125257960406603
+  },
+  {
+    "epoch": 5,
+    "train_loss": 0.6564967135489873,
+    "train_acc": 0.966798810703667,
+    "val_loss": 0.6873039466501079,
+    "val_accuracy": 0.9510022271714922,
+    "learning_rate": 1.9847315653655915e-05,
+    "epoch_time_seconds": 491.76921582221985,
+    "ema_val_accuracy": 0.9732739420935412,
+    "ema_val_loss": 0.6141929711424694
+  },
+  {
+    "epoch": 6,
+    "train_loss": 0.634181397993808,
+    "train_acc": 0.9717542120911794,
+    "val_loss": 0.6603049365077625,
+    "val_accuracy": 0.9621380846325167,
+    "learning_rate": 1.6362712429686842e-05,
+    "epoch_time_seconds": 485.57032322883606,
+    "ema_val_accuracy": 0.9755011135857461,
+    "ema_val_loss": 0.614666523142222
+  }
+]

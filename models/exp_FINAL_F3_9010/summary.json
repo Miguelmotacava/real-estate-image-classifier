@@ -1,0 +1,14 @@
+{
+  "experiment": "exp_FINAL_F3_9010",
+  "model": "convnextv2_large_22k",
+  "transfer_strategy": "fine_tuning",
+  "split": "90/10",
+  "best_val_accuracy": 0.9866369710467706,
+  "final_val_accuracy_tta": 0.9821826280623608,
+  "macro_f1": 0.9826466544814988,
+  "weighted_f1": 0.9821051323505208,
+  "test_accuracy": 0.9821826280623608,
+  "epochs_run": 8,
+  "image_size": 288,
+  "ensemble_member": "F3"
+}

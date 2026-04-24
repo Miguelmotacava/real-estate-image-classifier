@@ -25,6 +25,7 @@ class PredictionResponse(BaseModel):
     confidence: float = Field(..., ge=0.0, le=1.0)
     top3: List[TopPrediction]
     model_used: str
+    model_alias: str = Field("FINAL", description="Alias seleccionable (FINAL, F3, F4, F8, ensemble, ...)")
     inference_device: str
     inference_time_ms: float
 
@@ -67,6 +68,23 @@ class HealthResponse(BaseModel):
 
 class ClassesResponse(BaseModel):
     classes: List[ClassInfo]
+    total: int
+
+
+class ModelOption(BaseModel):
+    name: str = Field(..., description="Alias para usar en el query param ?model=")
+    label: str = Field(..., description="Nombre legible para mostrar en la UI")
+    type: str = Field(..., description="single | ensemble")
+    backbone: str = Field(..., description="Arquitectura(s) subyacente(s)")
+    image_size: int
+    val_accuracy: Optional[float] = None
+    description: str
+    is_default: bool
+
+
+class ModelsResponse(BaseModel):
+    models: List[ModelOption]
+    default: str
     total: int
 
 
