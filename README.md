@@ -289,6 +289,3 @@ fronteras Kitchen/Bedroom.
 - **Informe técnico ampliado**: [`reports/final_report.md`](reports/final_report.md)
 - **Comparativa de experimentos**: [`reports/experiments_summary.md`](reports/experiments_summary.md)
 - **Guía W&B**: [`reports/wandb_guide.md`](reports/wandb_guide.md)
-
-`agascon@comillas.edu` y `rkramer@comillas.edu` invitados al workspace de
-W&B con permisos de viewer.
