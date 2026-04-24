@@ -44,10 +44,11 @@ reports/*.log
 Thumbs.db
 desktop.ini
 
-# IDE
+# IDE / herramientas
 .vscode/
 .idea/
 *.swp
+.claude/
 
 # Datos pesados (opcional dejar fuera, pero el dataset se incluye en repo según enunciado)
 # dataset/
