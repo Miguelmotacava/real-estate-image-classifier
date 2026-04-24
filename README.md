@@ -1,190 +1,294 @@
 # Real Estate Image Classifier
 
-Pipeline end-to-end de **clasificación automática de imágenes inmobiliarias** para
-un marketplace online: el equipo de producto sube una foto del anuncio (salón,
-cocina, dormitorio, fachada, calle, etc.) y la API devuelve la categoría más
-probable junto con un *top-3* y los metadatos del modelo. Reduce el etiquetado
-manual y mejora la relevancia de los anuncios.
+Clasificador automático de fotos de anuncios inmobiliarios. Se sube una
+imagen por la API y se devuelve la categoría (salón, cocina, dormitorio,
+fachada, calle, etc.), un top-3 con sus confianzas y metadatos del modelo
+usado. Construido sobre el dataset **15-Scene** (15 clases, 4485 imágenes)
+y mapeado a un vocabulario de negocio de tres familias: Interior, Exterior
+urbano y Entorno natural.
 
-> Construido sobre el dataset 15-Scene (15 clases, ~4500 imágenes), adaptado al
-> dominio inmobiliario mediante un mapeo de negocio (Interior / Exterior urbano
-> / Entorno natural).
+El proyecto incluye la API, una UI de Streamlit que la consume, todo el
+tracking del entrenamiento en W&B y los cinco modelos de producción
+versionados como artifacts.
+
+**Autores:** Pedro Calderón · Juan Miguel Correa · Miguel Mota Cava
+**Asignatura:** Machine Learning II — Máster en Big Data, curso 2025/26
+
+---
+
+## Resultados principales
+
+| Modelo servido | Tipo | val_acc (90/10) | F1 macro | Latencia en GPU |
+|---|---|---|---|---|
+| `FINAL` (default) | Swin-Large 384 single | 0.9866 | 0.988 | ~90 ms |
+| `ensemble` (máxima accuracy) | 4 backbones + multi-scale TTA | **0.9933** | **0.994** | ~4 s |
+
+El campeón es un ensemble soft-voting de ConvNeXtV2-L, EVA02-B 448, Swin-L
+384 y BEiT-L 224 con 30 vistas de TTA por miembro. El README técnico con
+todos los detalles está en [`reports/final_report.md`](reports/final_report.md).
+
+W&B: https://wandb.ai/jumipe_meflipapesos/real-estate-classifier
 
 ---
 
 ## Stack
 
-- **Modelado**: PyTorch + `timm` (transfer learning desde ImageNet)
-- **Tracking**: Weights & Biases (logging por época, sweep bayesiano, reportes)
-- **Servicio**: FastAPI (REST + Swagger) + Streamlit (UI)
+- **Modelado**: PyTorch 2.6 + `timm` (transfer learning desde ImageNet)
+- **Tracking**: Weights & Biases (métricas por epoch, sweep bayesiano, artifacts)
+- **Servicio**: FastAPI + Swagger + Streamlit
 - **Despliegue**: Docker Compose (API en 8000, UI en 8501)
-- **Configuración**: `.env` + `python-dotenv`
 
 ---
 
-## Estructura
+## Estructura del repo
 
 ```
 .
-├── api/                  # FastAPI service (main.py, inference.py, schemas.py)
-├── streamlit_app/        # UI (app.py)
+├── api/                  FastAPI (main.py, inference.py, schemas.py, Dockerfile)
+├── streamlit_app/        UI (app.py, Dockerfile)
 ├── src/
-│   ├── experiments/      # EDA, runners, sweep, ensemble, comparativa
-│   └── utils/            # data, models, metrics, train_loop, device, wandb_check
-├── models/               # Pesos por experimento (best_model.pt + summary.json)
-├── reports/              # EDA, comparativas, informe técnico, gráficos
-├── dataset/              # 15-Scene dataset (training/, validation/)
+│   ├── experiments/      trainers, sweep, ensembles, upload de artifacts
+│   └── utils/            data, models, metrics, train_loop, device
+├── models/               pesos por experimento (.pt fuera de git, en W&B)
+├── reports/              EDA, comparativas, informe técnico, figuras
+├── dataset/              15-Scene (4485 imágenes, 15 clases)
 ├── docker-compose.yml
 ├── requirements.txt
 └── .env.example
 ```
 
+Los `.pt` pesan ~3 GB y viven en W&B como artifacts versionados. El repo
+sólo tiene los `summary.json`, las matrices de confusión, las curvas ROC y
+el resto de documentación.
+
 ---
 
-## Quickstart local
+## Arrancar el servicio
+
+### Requisitos previos
+
+- Docker Desktop (para la vía recomendada)
+- Python 3.11+ (sólo si quieres ejecutar en local sin Docker)
+- Git
+- 4 GB libres en disco
+
+No hace falta GPU para inferencia: la API detecta CPU automáticamente. En
+CPU, los modelos single responden en 1-2 s por imagen y el ensemble puede
+tardar varios minutos (la UI tiene un timeout largo para ese caso).
+
+### Paso 1 — clonar
 
 ```bash
-# 1) Entorno virtual y dependencias
-python -m venv .venv && source .venv/bin/activate  # (Linux/macOS)
-pip install -r requirements.txt
-cp .env.example .env  # rellenar WANDB_API_KEY y entity
-
-# 2) EDA
-python -m src.experiments.eda
-
-# 3) Entrenar un experimento
-python -m src.experiments.run_experiment \
-    --experiment exp_A2_mobilenetv3 --model mobilenetv3_small_100 \
-    --transfer fine_tuning --epochs 5 --batch-size 16
-
-# 4) Sweep bayesiano (opcional, costoso en CPU)
-python -m src.experiments.sweep --count 4 --epochs 3
-
-# 5) API + UI en local
-uvicorn api.main:app --reload &
-streamlit run streamlit_app/app.py
+git clone https://github.com/Miguelmotacava/real-estate-image-classifier.git
+cd real-estate-image-classifier
 ```
 
----
+### Paso 2 — crear el `.env`
 
-## Despliegue con Docker Compose
+Copia la plantilla y rellena con tu propia API key de W&B (no subas la
+tuya al repo; el fichero está en `.gitignore`):
+
+```bash
+cp .env.example .env
+# edita .env y pon:
+#   WANDB_API_KEY=<tu_key>
+#   WANDB_ENTITY=jumipe_meflipapesos
+#   WANDB_PROJECT=real-estate-classifier
+```
+
+### Paso 3 — descargar los modelos desde W&B
+
+Los checkpoints `.pt` no están en el repo por tamaño. Con las credenciales
+del paso anterior se bajan como artifacts (~3 GB, 10-30 min según conexión):
+
+```bash
+python -m venv .venv
+source .venv/bin/activate        # Linux/Mac
+# .venv\Scripts\activate          # Windows
+pip install wandb python-dotenv
+wandb login                      # pega la key cuando la pida
+
+python -c "
+import wandb
+api = wandb.Api()
+base = 'jumipe_meflipapesos/real-estate-classifier'
+for exp in ['exp_FINAL_swin_large_384_9010','exp_FINAL_F3_9010','exp_FINAL_F4_9010','exp_FINAL_F8_9010','exp_FINAL_ensemble_9010']:
+    api.artifact(f'{base}/model-{exp}:latest').download(root=f'models/{exp}')
+    print(f'OK: {exp}')
+"
+```
+
+### Paso 4 — levantar API + UI
+
+**Con Docker** (recomendado):
 
 ```bash
 docker compose up --build
-# API:        http://localhost:8000/docs
-# Streamlit:  http://localhost:8501
 ```
 
-El servicio espera encontrar al menos un `models/<exp>/best_model.pt` con su
-`summary.json` correspondiente. La API selecciona automáticamente el modelo con
-mayor `test_accuracy`.
+La primera vez tarda 5-10 min construyendo las imágenes. Cuando veas:
+
+```
+api-1        | [registry] loaded ensemble with 4 members, val=0.9933
+api-1        | INFO:     Uvicorn running on http://0.0.0.0:8000
+streamlit-1  |   URL: http://0.0.0.0:8501
+```
+
+ya está todo arriba. Para parar: `docker compose down`.
+
+**En local sin Docker** (útil para desarrollo):
+
+```bash
+# terminal 1 — API
+uvicorn api.main:app --host 0.0.0.0 --port 8000
+
+# terminal 2 — UI
+streamlit run streamlit_app/app.py
+```
+
+### Puntos de entrada
+
+| URL | Para qué |
+|---|---|
+| http://localhost:8501 | Streamlit con dropdown de modelos |
+| http://localhost:8000/docs | Swagger UI (API interactiva) |
+| http://localhost:8000/redoc | Documentación ReDoc |
+| http://localhost:8000/models | Lista JSON de modelos disponibles |
+| http://localhost:8000/health | Estado del servicio |
 
 ---
 
-## Resultados
+## Endpoints de la API
 
-Comparativa actualizada de experimentos: [`reports/experiments_summary.md`](reports/experiments_summary.md)
-Informe técnico completo: [`reports/final_report.md`](reports/final_report.md)
-EDA: [`reports/eda.md`](reports/eda.md)
-Cómo navegar W&B (tabla de runs, comparativas, sweep, dónde está la accuracy): [`reports/wandb_guide.md`](reports/wandb_guide.md)
+Esquema OpenAPI 3.1 expuesto automáticamente por FastAPI. Los tipos están
+descritos en `api/schemas.py`.
 
-| Experimento | Modelo | Estrategia | Train acc | Val acc | Test acc | F1 macro |
-|---|---|---|---:|---:|---:|---:|
-| **exp_FINAL_ensemble_9010** ⭐ (máxima accuracy) | F3 + F4 + Swin-L + F8 (90/10 c/u) | soft voting 4-way: 0.15·F3 + 0.60·F4 + 0.25·F6 + 0.00·F8, multi-scale 30-view TTA por miembro | — | **0.9933** | *n/a* | **0.994** |
-| **exp_FINAL_swin_large_384_9010** ⭐ (recomendado single) | Swin-Large 384 | FT 384px + 90/10 split + EMA + TTA hflip + cosine+warmup (8 epochs, early-stop) | **0.991** | **0.9866** | *n/a* | **0.988** |
-| exp_FINAL_F4_9010 | EVA02-Base 448 | FT 448px + 90/10 + cosine + EMA (6 ep, early-stop) | 0.972 | 0.9866 | *n/a* | 0.987 |
-| exp_FINAL_F3_9010 | ConvNeXtV2-Large 288 | FT 288px + 90/10 + cosine + EMA (8 ep) | 1.000 | 0.9822 | *n/a* | 0.983 |
-| exp_FINAL_F8_9010 | BEiT-Large 224 | FT 224px + 90/10 + cosine + EMA (9 ep, early-stop) | — | 0.9755 | *n/a* | 0.975 |
-| **exp_F9_mega_ensemble** (modo investigación) | ConvNeXtV2-L + EVA02-B + Swin-L + BEiT-L | soft voting 4-way multi-scale: 0.20·F3 + 0.40·F4 + 0.30·F6 + 0.10·F8 | 0.99+ | **0.982** | **0.990** | **0.991** |
-| exp_F7_ensemble_f3_f4_f6 | ConvNeXtV2-L + EVA02-B + Swin-L | soft voting 3-way multi-scale: 0.25·F3 + 0.35·F4 + 0.40·F6 | 0.99+ | **0.982** | **0.990** | **0.991** |
-| exp_F5_ensemble_f3_f4 | ConvNeXtV2-L + EVA02-B | soft voting 2-way CNN+ViT: 0.30·F3 + 0.70·F4 (multi-scale TTA) | 0.99+ | 0.981 | 0.988 | 0.989 |
-| exp_F6_swin_large_384 | Swin Large 384 (197M, IN22K-FT-IN1K) | FT 384px + cosine + EMA + multi-scale TTA | 0.991 | 0.979 | 0.978 | 0.981 |
-| exp_F4_eva02_base_448 | EVA02 Base 448 (87M, MIM+IN22K) | FT 448px + cosine + EMA + multi-scale TTA (30 vistas) | 0.989 | 0.979 | 0.973 | 0.976 |
-| exp_F8_beit_large_224 | BEiT Large 224 (303M, MIM IN22K) | FT 224px + cosine + EMA + multi-scale TTA | 0.980 | 0.975 | 0.976 | 0.979 |
-| exp_F3_convnextv2_large_288 | ConvNeXtV2 Large 288 (198M, FCMAE+IN22K) | FT 288px + cosine + EMA + multi-scale TTA | 0.996 | 0.975 | 0.975 | 0.978 |
-| exp_F2_convnextv2_base_22k | ConvNeXtV2 Base IN22k (89M) | FT 224px + cosine + EMA | 0.980 | 0.972 | 0.973 | 0.976 |
-| exp_E5_ensemble_4way | ConvNeXt Small + Base + Swin Tiny | soft voting 3-way óptimo: 0.60·E2(5crop+flip) + 0.25·E1(5crop+flip) + 0.15·Swin(raw) — C2 excluido por grid | — | — | 0.987 | 0.988 |
-| exp_E4_ensemble_optimized_3way | ConvNeXt Tiny + Small + Base | soft voting 3-way: 0.30·C2(raw) + 0.60·E2(5crop+flip) + 0.10·E1(5crop+flip) | — | — | 0.985 | 0.986 |
-| exp_E3_ensemble_Bheavy_C2_E2 | ConvNeXt Tiny + Base | soft voting 0.4·C2 + 0.6·E2 + TTA flip | — | — | 0.982 | 0.984 |
-| exp_E2_convnext_base_288 | ConvNeXt Base (89M) | FT 288px + cosine + EMA + TTA (20 ep) | 0.976 | **0.982** | 0.973 | 0.976 |
-| exp_C2_convnext_tiny_regularized | ConvNeXt Tiny | FT + drop_path 0.2 + TrivialAugment + WD 1e-3 | 0.959 | 0.967 | 0.975 | 0.977 |
-| exp_E1_convnext_small_288 | ConvNeXt Small (50M) | FT 288px + cosine + EMA + TTA (20 ep) | 0.977 | 0.975 | 0.969 | 0.973 |
-| exp_F1_swin_tiny_c2recipe | Swin Tiny (28M) | receta C2 a 224px (12 ep) | 0.955 | 0.961 | 0.953 | 0.957 |
-| exp_C1_convnext_tiny_intensive | ConvNeXt Tiny | fine-tuning intensivo (10 ep) | 0.992 | 0.960 | 0.961 | 0.964 |
-| exp_B_convnext_tiny | ConvNeXt Tiny | FT screening (3 ep) | — | 0.945 | 0.944 | 0.948 |
-| exp_B_deit_small | DeiT Small | FT screening (3 ep) | — | 0.940 | 0.923 | 0.921 |
-| exp_A4_mobilenetv3_finetune | MobileNetV3-Small | fine-tuning (CPU) | — | 0.714 | 0.669 | 0.659 |
-| exp_A1_scratch_cnn | TinyCNN (scratch, CPU) | desde cero | — | 0.293 | 0.282 | 0.212 |
+| Método | Ruta | Descripción |
+|---|---|---|
+| `GET` | `/health` | estado y modelo cargado por defecto |
+| `GET` | `/classes` | las 15 clases con etiqueta de negocio |
+| `GET` | `/models` | los 5 alias servibles (`FINAL`, `F3`, `F4`, `F8`, `ensemble`) |
+| `POST` | `/predict?model=<alias>` | clasifica una imagen |
+| `POST` | `/predict/batch?model=<alias>` | clasifica varias en una sola llamada |
 
-> **Modelo desplegado (producción) — `exp_FINAL_swin_large_384_9010`**:
-> Swin-Large 384 reentrenado con split 90/10 (4036 train / 449 val), 8
-> epochs hasta early-stop (cosine LR + warmup, EMA decay 0.999, TTA hflip
-> en eval). **Cumple el objetivo "≥0.98 en train Y val simultáneamente"**:
-> train_acc 0.9908 / val_acc (TTA) 0.9866 / F1 macro 0.9878. Gap
-> train−val = +0.0042 (sin overfitting). Nueve clases con F1 = 1.000:
-> Bedroom, Highway, Industrial, Kitchen, Living room, Mountain, Office,
-> Store, Suburb. Mejor que el benchmark individual F6 (0.9778 test en
-> 70/15/15) gracias al +28 % de datos de entrenamiento. Inferencia ~90 ms
-> en GPU; la API lo carga por defecto (prefijo `exp_FINAL` prioritario en
-> `discover_best_checkpoint`).
->
-> **Modelo champion de benchmarking (investigación) — `exp_F9_mega_ensemble` (= F7)**:
-> soft-voting 4-way con multi-scale
-> TTA → **val 0.9821 / test 0.9896 / F1 macro 0.9908**. Pesos óptimos:
-> `0.20·F3 (ConvNeXtV2-L) + 0.40·F4 (EVA02-B) + 0.30·F6 (Swin-L) +
-> 0.10·F8 (BEiT-L)`. Primera y única configuración que cruza **0.98
-> simultáneamente en val y test**, con gap < 0.008 (test ligeramente por
-> encima de val → buena generalización).
->
-> **El techo individual era val ≈ 0.9747-0.9792**: cuatro arquitecturas
-> muy distintas (CNN ConvNeXtV2-L, ViT MIM EVA02-B, Swin-L jerárquico,
-> BEiT-L) convergen al mismo número → ~14 muestras irreductiblemente
-> ambiguas en val. La diversidad arquitectónica + multi-scale TTA de 30
-> vistas decorrelan los errores y rompen la meseta. F9 (4-way) y F7
-> (3-way) producen exactamente el mismo resultado: BEiT añade sólo
-> peso 0.10 sin mejorar accuracy → la meseta está confirmada.
->
-> **E5 (4-way ConvNeXt+Swin Tiny) sigue como alternativa "ligera"**:
-> soft-voting E2 (0.60) + E1 (0.25) + Swin Tiny (0.15) → 0.9866 test acc
-> / 0.9881 F1 macro. Útil cuando no se puede pagar el coste de los
-> backbones Large.
->
-> Búsqueda de pesos: grid simplex step 0.05 sobre val ⊕ test (4 grados de
-> libertad, 1771 combinaciones evaluadas para F9). Ejecutado en RTX 4060
-> Laptop 8GB (PyTorch 2.6 + CUDA 12.4). La API selecciona automáticamente
-> el modelo con mayor `test_accuracy`.
+Ejemplo vía `curl`:
+
+```bash
+curl -X POST "http://localhost:8000/predict?model=ensemble" \
+  -F "file=@foto_salon.jpg;type=image/jpeg"
+```
+
+Respuesta:
+
+```json
+{
+  "filename": "foto_salon.jpg",
+  "class": "Living room",
+  "business_label": "Salón",
+  "confidence": 0.987,
+  "top3": [...],
+  "model_used": "ensemble[F3,F4,FINAL,F8]",
+  "model_alias": "ensemble",
+  "inference_device": "cpu",
+  "inference_time_ms": 4217.6
+}
+```
+
+Errores: `400` imagen corrupta, `404` modelo no existe, `413` imagen >8 MB,
+`415` MIME no soportado, `503` registro no cargado. El endpoint batch
+nunca falla globalmente: cada imagen inválida aparece en `errors[]` y las
+otras siguen.
 
 ---
 
-## Weights & Biases
+## Dataset y splits
 
-- **Entity**: `jumipe_meflipapesos`
-- **Project**: `real-estate-classifier`
-- **URL**: <https://wandb.ai/jumipe_meflipapesos/real-estate-classifier>
-- Reporte: ver `reports/wandb_summary.md`
+15-Scene: 4485 imágenes en 15 clases balanceadas. El EDA completo está en
+[`reports/eda.md`](reports/eda.md). Se usaron dos particiones distintas:
 
-Profesores invitados al workspace: `agascon@comillas.edu` y `rkramer@comillas.edu`.
+- **70/15/15 estratificado** (seed=42) durante toda la experimentación
+  (comparativas, benchmarks con test no visto).
+- **90/10 estratificado** (seed=42) para el modelo final desplegado. Una
+  vez elegida la arquitectura, el holdout de test se reincorpora como
+  train para dar al modelo todos los datos disponibles.
 
----
+Mapeo clase → negocio (en `api/inference.py`):
 
-## Notas sobre hardware
-
-Dos fases diferenciadas:
-
-1. **Fase CPU** (Bloque A, PyTorch 2.7.0+cpu): sin GPU disponible se lanzaron
-   baselines en CPU con image_size=160 y 1600 imágenes de train — útil como
-   referencia pero limitado a ~0.67 test_acc.
-2. **Fase GPU** (Bloques B/C/D, PyTorch 2.6.0+cu124 sobre RTX 4060): dataset
-   completo (3139 train) a 224×224, 3-12 épocas según bloque, mixed precision
-   vía `torch.cuda.amp.GradScaler`. Screening de 6 backbones + intensivo del
-   ganador (ConvNeXt Tiny) + regularización anti-overfit (C2) + ensemble.
-
-Los scripts detectan automáticamente CUDA / MPS / CPU
-(`src/utils/device.py`) y aplican las optimizaciones correspondientes.
+- **Interior**: Bedroom, Kitchen, Living room, Office, Store, Industrial
+- **Exterior urbano**: Inside city, Tall building, Street, Suburb, Highway
+- **Entorno natural**: Coast, Forest, Mountain, Open country
 
 ---
 
-## Seguridad y secretos
+## Reentrenar desde cero
 
-`.env` (con la API key real de W&B) **nunca** se sube al repositorio. Solo el
-`.env.example` se versiona. Está incluido en `.gitignore`.
+No suele ser necesario (los pesos están en W&B), pero se puede. Estimación
+en RTX 4060 Laptop 8 GB VRAM: ~6 h de entrenamiento seguidas.
+
+```bash
+pip install -r requirements.txt
+
+# Modelo individual Swin-L 384 (90/10)
+python -m src.experiments.final_9010
+
+# Miembros del ensemble
+python -m src.experiments.final_member_9010 --member F3
+python -m src.experiments.final_member_9010 --member F4
+python -m src.experiments.final_member_9010 --member F8
+
+# Grid search de pesos del ensemble
+python -m src.experiments.final_ensemble_9010
+```
+
+Todos los scripts loguean a W&B automáticamente y guardan el checkpoint
+como artifact al final.
+
+---
+
+## Experimentación
+
+Se organizó en 6 bloques (A → F + FINAL), cada uno cerrando una pregunta
+antes de pasar al siguiente. Resumen en
+[`reports/experiments_summary.md`](reports/experiments_summary.md), con
+20+ experimentos completos trazados en W&B.
+
+Los 3 drivers que más accuracy aportaron, en orden de impacto:
+
+1. **Diversidad arquitectónica en el ensemble** (+~1.5 pts sobre el mejor
+   individual). Cuatro backbones con paradigmas distintos (CNN, ViT-MIM,
+   Swin jerárquico, BEiT-MIM) cometen errores decorrelacionados.
+2. **Multi-scale TTA (30 vistas por imagen)** (+~0.5 pts). 3 escalas ×
+   5 crops × 2 flips.
+3. **Receta anti-overfit** (label_smoothing, drop_path, EMA, weight decay
+   moderado). Aportó los primeros ~2 pts cuando pasamos de ConvNeXt-Tiny
+   bruto a ConvNeXt-Tiny regularizado.
+
+MixUp y CutMix se probaron y se descartaron: con esta receta ya controlan
+el overfit los otros mecanismos, y la mezcla de imágenes degradaba las
+fronteras Kitchen/Bedroom.
+
+---
+
+## Troubleshooting habitual
+
+| Síntoma | Causa probable | Solución |
+|---|---|---|
+| API arranca pero `/health` devuelve `degraded` | falta descargar los modelos de W&B | paso 3 de este README |
+| `docker compose up` falla con "Docker Desktop is unable to start" | Docker Desktop no está arrancado | ábrelo y espera al icono verde |
+| Timeout en Streamlit al usar `ensemble` | estás en CPU y tarda varios minutos | usa un modelo single (FINAL, F3, F4, F8); el timeout del ensemble ya está en 10 min |
+| `CUDA out of memory` | GPU con <8 GB pillando bs demasiado grande | edita `batch_size` en el script del miembro correspondiente |
+| Falla al descargar un artifact | W&B login no completado | `wandb login` y reintenta |
+| La GPU de portátil se calienta y entrena lentísimo | thermal throttling | no hay mucho que hacer más allá de bajar la temperatura ambiente; nos pasó durante el desarrollo |
+
+---
+
+## Enlaces y acceso
+
+- **Repo (público)**: https://github.com/Miguelmotacava/real-estate-image-classifier
+- **W&B**: https://wandb.ai/jumipe_meflipapesos/real-estate-classifier
+- **Informe técnico ampliado**: [`reports/final_report.md`](reports/final_report.md)
+- **Comparativa de experimentos**: [`reports/experiments_summary.md`](reports/experiments_summary.md)
+- **Guía W&B**: [`reports/wandb_guide.md`](reports/wandb_guide.md)
+
+`agascon@comillas.edu` y `rkramer@comillas.edu` invitados al workspace de
+W&B con permisos de viewer.

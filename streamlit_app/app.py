@@ -17,7 +17,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 API_URL = os.getenv("API_URL", "http://localhost:8000")
-TIMEOUT = 60
+# Timeout variable según modelo: los single acaban en segundos, el ensemble
+# con multi-scale TTA puede tardar ~4 s en GPU y varios minutos en CPU.
+TIMEOUT_DEFAULT = 120
+TIMEOUT_ENSEMBLE = 600
 
 st.set_page_config(
     page_title="Clasificador de imágenes inmobiliarias",
@@ -60,10 +63,20 @@ def fetch_models() -> dict[str, Any] | None:
 def call_predict(file_bytes: bytes, filename: str, content_type: str, model: str) -> dict | None:
     files = {"file": (filename, file_bytes, content_type)}
     params = {"model": model} if model else {}
+    # El ensemble aplica multi-scale 30-view TTA × 4 backbones.
+    # En CPU esto se puede ir a 3-5 minutos; damos 10 minutos de margen.
+    timeout = TIMEOUT_ENSEMBLE if (model or "").lower() == "ensemble" else TIMEOUT_DEFAULT
     try:
         resp = requests.post(
-            f"{API_URL}/predict", files=files, params=params, timeout=TIMEOUT,
+            f"{API_URL}/predict", files=files, params=params, timeout=timeout,
         )
+    except requests.Timeout:
+        st.error(
+            f"Timeout después de {timeout}s. El modelo `{model}` tarda demasiado "
+            "con este hardware; prueba con FINAL o con un backbone individual "
+            "(F3 / F4 / F8) si no tienes GPU."
+        )
+        return None
     except requests.RequestException as exc:
         st.error(f"Error contactando con la API: {exc}")
         return None
