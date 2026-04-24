@@ -227,6 +227,18 @@ def main() -> None:
         run.summary["macro_f1"] = val_report["macro avg"]["f1-score"]
         run.log({"confusion_matrix": wandb.Image(str(cm_path))})
         run.log({"roc_curves": wandb.Image(str(roc_path))})
+        artifact = wandb.Artifact(
+            name="model-exp_FINAL_ensemble_9010", type="ensemble-config",
+            description=(
+                f"Ensemble weights + config (val_acc={best['val']:.4f}). "
+                "The .pt of each member is stored in its own model-... artifact."
+            ),
+            metadata={**summary},
+        )
+        artifact.add_file(str(out_dir / "ensemble.json"))
+        artifact.add_file(str(out_dir / "summary.json"))
+        artifact.add_file(str(out_dir / "val_metrics.json"))
+        run.log_artifact(artifact)
         run.finish()
     except Exception as exc:
         print(f"[ensemble] W&B logging skipped: {exc}", flush=True)

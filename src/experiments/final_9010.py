@@ -210,6 +210,14 @@ def main() -> None:
             r = report[cls]
             table.add_data(cls, r["precision"], r["recall"], r["f1-score"], r["support"])
         wandb.log({"per_class_metrics": table})
+        artifact = wandb.Artifact(
+            name=f"model-{EXPERIMENT}", type="model",
+            description=f"Trained checkpoint for {EXPERIMENT} (val_acc={val_acc:.4f})",
+            metadata={**summary},
+        )
+        artifact.add_file(str(best_path))
+        artifact.add_file(str(output_dir / "summary.json"))
+        wandb.log_artifact(artifact)
         wandb.finish()
 
 

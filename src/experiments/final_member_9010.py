@@ -195,6 +195,14 @@ def main() -> None:
         wandb.summary["macro_f1"] = report["macro avg"]["f1-score"]
         wandb.log({"confusion_matrix": wandb.Image(str(cm_path))})
         wandb.log({"roc_curves": wandb.Image(str(roc_path))})
+        artifact = wandb.Artifact(
+            name=f"model-{EXPERIMENT}", type="model",
+            description=f"Trained checkpoint for {EXPERIMENT} (val_acc={val_acc:.4f})",
+            metadata={**summary},
+        )
+        artifact.add_file(str(best_path))
+        artifact.add_file(str(output_dir / "summary.json"))
+        wandb.log_artifact(artifact)
         wandb.finish()
 
 
